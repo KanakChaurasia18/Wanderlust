@@ -1,5 +1,6 @@
 const Listing = require("../models/listing");
 
+// Index Route - Displays all listings
 module.exports.index = async (req, res) => {
   const allListings = await Listing.find({});
   res.render("listings/index.ejs", { allListings });
@@ -9,6 +10,7 @@ module.exports.renderNewForm = (req, res) => {
   res.render("listings/new.ejs");
 };
 
+// Displays details of a specific listing
 module.exports.showListing = async (req, res) => {
   const { id } = req.params;
   const listing = await Listing.findById(id)
@@ -27,6 +29,7 @@ module.exports.showListing = async (req, res) => {
   res.render("listings/show.ejs", { listing });
 };
 
+// Handles form submission to create a new listing
 module.exports.createListing = async (req, res, next) => {
   const newListing = new Listing(req.body.listing);
   newListing.owner = req.user._id;
@@ -45,6 +48,7 @@ module.exports.renderEditForm = async (req, res) => {
   res.render("listings/edit.ejs", { listing });
 };
 
+// Handles form submission to update an existing listing
 module.exports.updateListing = async (req, res) => {
   const { id } = req.params;
   await Listing.findByIdAndUpdate(id, { ...req.body.listing });
@@ -52,6 +56,7 @@ module.exports.updateListing = async (req, res) => {
   res.redirect(`/listings/${id}`);
 };
 
+// Deletes a specific listing
 module.exports.destroyListing = async (req, res) => {
   const { id } = req.params;
   await Listing.findByIdAndDelete(id);
