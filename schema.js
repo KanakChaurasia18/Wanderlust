@@ -8,9 +8,16 @@ module.exports.listingSchema = Joi.object({
         country: Joi.string().required(),
         price: Joi.number().required().min(0),
         image: Joi.object({
-            url: Joi.string().uri().required(),   // url string hona chahiye
+            url: Joi.string().uri().optional(),   // url string hona chahiye
             filename: Joi.string().optional()     // filename optional
-        }).optional()
+        }).optional(),
+        // ✅ STRICT: Geometry validation
+        geometry: Joi.object({
+            type: Joi.string().valid("Point").default("Point"),
+            coordinates: Joi.array().items(
+                Joi.number().min(-180).max(180)
+            ).length(2).required()
+        }).optional(),
     }).required()
 });
 
