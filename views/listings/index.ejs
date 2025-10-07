@@ -30,7 +30,7 @@
     display: none;
   }
 
-  .tax-toggle{
+  .tax-toggle {
     border: 1px solid black;
     border-radius: 1rem;
     height: 2.5rem;
@@ -42,47 +42,48 @@
 </style>
 
 <div id="filters">
-  <div class="filter">
+  <div class="filter" data-category="">All</div>
+  <div class="filter" data-category="trending">
     <div><i class="fa-solid fa-fire"></i></div>
     <p>Trending</p>
   </div>
-  <div class="filter">
+  <div class="filter" data-category="rooms">
     <div><i class="fa-solid fa-bed"></i></div>
     <p>Rooms</p>
   </div>
-  <div class="filter">
+  <div class="filter" data-category="iconic cities">
     <div><i class="fa-solid fa-mountain-city"></i></div>
     <p>Iconic cities</p>
   </div>
-  <div class="filter">
+  <div class="filter" data-category="mountains">
     <div><i class="fa-solid fa-mountain"></i></div>
     <p>Mountains</p>
   </div>
-  <div class="filter">
+  <div class="filter" data-category="castles">
     <div><i class="fa-brands fa-fort-awesome"></i></div>
     <p>Castles</p>
   </div>
-  <div class="filter">
+  <div class="filter" data-category="amazing pools">
     <div><i class="fa-solid fa-person-swimming"></i></div>
     <p>Amazing Pools</p>
   </div>
-  <div class="filter">
+  <div class="filter" data-category="camping">
     <div><i class="fa-solid fa-campground"></i></div>
     <p>Camping</p>
   </div>
-  <div class="filter">
+  <div class="filter" data-category="farms">
     <div><i class="fa-solid fa-cow"></i></div>
     <p>Farms</p>
   </div>
-  <div class="filter">
+  <div class="filter" data-category="arctic">
     <div><i class="fa-solid fa-snowflake"></i></div>
     <p>Arctic</p>
   </div>
-  <div class="filter">
+  <div class="filter" data-category="domes">
     <div><i class="fa-solid fa-igloo"></i></div>
     <p>Domes</p>
   </div>
-  <div class="filter">
+  <div class="filter" data-category="boats">
     <div><i class="fa-solid fa-ship"></i></div>
     <p>Boats</p>
   </div>
@@ -96,14 +97,19 @@
         id="switchCheckDefault"
       />
       <label class="form-check-label" for="switchCheckDefault"
-        >Display total after taxes</label>
+        >Display total after taxes</label
+      >
     </div>
   </div>
-
 </div>
 <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
   <% for(let listing of allListings){ %>
-  <a href="/listings/<%= listing._id %>" class="listing-link">
+  <a
+    href="/listings/<%= listing._id %>"
+    class="listing-link"
+    data-title="<%= listing.title.toLowerCase() %>"
+    data-category="<%= listing.category ? listing.category.toLowerCase() : '' %>"
+  >
     <div class="card col listing-card">
       <img
         src="<%= listing.image.url %>"
@@ -136,5 +142,23 @@
         info.style.display = "none";
       }
     }
-  })
+  });
+
+  // 🏷️ FILTER FUNCTIONALITY
+  const filters = document.querySelectorAll(".filter");
+  const listings = document.querySelectorAll(".listing-link"); // ✅ Added this line
+
+  filters.forEach((filter) => {
+    filter.addEventListener("click", () => {
+      const selectedCategory = filter.dataset.category.toLowerCase();
+
+      listings.forEach((listing) => {
+        const cardCategory = listing.dataset.category.toLowerCase();
+        listing.style.display =
+          selectedCategory === "" || cardCategory === selectedCategory
+            ? "block"
+            : "none";
+      });
+    });
+  });
 </script>
