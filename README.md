@@ -277,13 +277,6 @@ npm install
 
 ### 3️⃣ Create `.env`
 
-```env
-CLOUD_NAME=xxxxxx
-CLOUD_KEY=xxxxxx
-CLOUD_SECRET=xxxxxx
-MONGO_URL=mongodb://localhost:27017/staysphere
-JWT_SECRET=xxxxxx
-```
 
 ### 4️⃣ Start the server
 
@@ -302,19 +295,6 @@ node app.js
 | `CLOUD_SECRET` | Cloudinary secret     |
 | `MONGO_URL`    | Database URL          |
 | `JWT_SECRET`   | Token signing secret  |
-
----
-
-# 📷 **Screenshots**
-
-*Add your images in a folder named `screenshots/` and embed them here.*
-
-Example:
-
-```
-![Home Page](screenshots/home.png)
-![Listing Details](screenshots/details.png)
-```
 
 ---
 
