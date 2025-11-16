@@ -1,4 +1,3 @@
-# Project
 # 🏨 **StaySphere – Modern Accommodation Booking Platform**
 
 *A full-stack MERN project inspired by Airbnb, with secure authentication, Cloudinary-powered media uploads, and a clean MVC architecture.*
